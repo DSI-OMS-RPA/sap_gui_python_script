@@ -5,10 +5,10 @@ from typing import Dict, Optional
 def get_sap_config() -> Dict[str, str]:
     """Return SAP configuration parameters."""
     return {
-        "platform": "SAP PRD",  # SAP system identifier
+        "platform": "PRD",  # SAP system identifier
         "client": "110",  # Client number
-        "username": "RPA_USER",
-        "password": "Dezembro#2024",
+        "username": "USER",
+        "password": "PASSWORD",
         "language": "PT"  # Language code
     }
 
