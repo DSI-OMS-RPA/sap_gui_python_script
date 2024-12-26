@@ -1,3 +1,4 @@
+import random
 import sys
 import time
 import locale
@@ -148,8 +149,9 @@ class SapGui():
 
             logging.info("Password change prompt detected.")
 
-            # Generate new password in 'Month#Year' format (e.g., 'Maio#2024')
-            new_password = f"{datetime.now().strftime('%B').capitalize()}#{datetime.now().strftime('%Y')}"
+            # Generate new password in 'NumberMonth#Year' format (e.g., '123Maio#2024')
+            number = random.randrange(1, 999)
+            new_password = f"{number}{datetime.now().strftime('%B').capitalize()}#{datetime.now().strftime('%Y')}"
             logging.info(f"Generated new password: {new_password}")
 
             # Input the new password into both fields
