@@ -1,71 +1,74 @@
 # SAP Automation Script
 
-This project provides a class for automating interactions with SAP GUI using the SAP GUI Scripting API and the `win32` library. The `SapGui` class handles login, password change, logout, and other SAP GUI operations.
+Python script for automating SAP GUI interactions using SAP GUI Scripting API and win32 library.
 
 ## Features
+- SAP system login/logout automation
+- Automatic password change handling
+- Multiple login session management
+- Element interaction with timeout handling
+- Window and dialog management
+- Cell value operations
+- Resource cleanup
 
-- Automates SAP login using provided credentials.
-- Handles SAP password change prompts.
-- Allows custom operations, such as waiting for specific elements or dialogs.
-- Supports closing sessions and logging out of SAP.
-- Retrieves and handles SAP element text.
+## Prerequisites
+- Python 3.6+
+- SAP GUI Client
+- SAP GUI Scripting enabled
+- Windows OS
 
 ## Installation
-
-To use this script, make sure the following dependencies are installed:
-
 ```bash
-pip install pywin32 pygetwindow
+pip install pywin32 pygetwindow psutil
 ```
 
 ## Usage
-Initializing the SAP Automation
-
-To create an SAP session:
 
 ```python
-
 from sap_gui import SapGui
 
+# Configure SAP connection
 sap_args = {
-    "platform": "your_sap_system",
-    "username": "your_username",
-    "password": "your_password",
-    "sap_client": "100",
-    "sap_language": "EN",
-    "sap_path": "C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\saplogon.exe"
+    "platform": "SAP PRD",
+    "client": "100",
+    "username": "USER",
+    "password": "PASSWORD",
+    "language": "EN",
+    "path": "saplogon.exe"  # Default path
 }
 
-sap_session = SapGui(sap_args)
+try:
+    # Initialize SAP session
+    sap = SapGui(sap_args)
 
-# Log in to SAP
-if sap_session.sapLogin():
-    print("Login successful!")
-else:
-    print("Login failed.")
+    # Login
+    if sap.sapLogin():
+        # Execute SAP operations
+        sap.perform_operation("/nVA01", "wnd[0]/usr/ctxtVBAK-AUART")
+
+        # Other operations...
+
+    # Cleanup
+    sap.sapLogout()
+    sap.close_connection()
+
+except Exception as e:
+    print(f"Error: {e}")
 ```
 
-## Handling SAP Password Change
+## Key Functions
+- `sapLogin()`: SAP system login with password change handling
+- `perform_operation()`: Execute SAP transactions/commands
+- `wait_for_element()`: Wait for SAP GUI elements
+- `set_cell_value()`: Set values in table cells
+- `bring_dialog_to_top()`: Handle SAP dialogs
+- `scroll_to_field()`: Navigate to fields
+- `get_sap_element_text()`: Retrieve element text
 
-The SapGui class automatically detects password change prompts and generates a new password in the format Month#Year (e.g., Maio#2024).
-Logout
-
-To safely log out of SAP:
-
-```python
-sap_session.sapLogout()
-```
-
-## Close SAP Session
-
-To close the session:
-
-```python
-sap_session.close_connection()
-```
-
-## Requirements
-
-- Python 3.6+
-- SAP GUI Client installed
-- SAP Scripting enabled
+## Error Handling
+The script includes comprehensive error handling and logging for:
+- Connection failures
+- Login issues
+- Password changes
+- Element interactions
+- Resource cleanup

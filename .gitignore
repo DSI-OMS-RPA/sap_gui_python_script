@@ -1,0 +1,28 @@
+# Environments
+.env
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class
+
+# vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# pycharm
+.idea/*
+
+# History files
+.history
+
+# Logs
+*log.txt
+*.log
+
+# Python
+test_*.py
